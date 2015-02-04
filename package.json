@@ -1,0 +1,23 @@
+{
+  "name": "openlit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://yapcheahshen@github.com/ksanaforge/openlit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksanaforge/openlit/issues"
+  },
+  "homepage": "https://github.com/ksanaforge/openlit",
+  "dependencies": {
+    "iconv-lite": "*",
+    "request": "*"
+  }
+}

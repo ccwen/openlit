@@ -1,0 +1,6 @@
+xml
+raw
+filelist.lst
+*.kdb
+*.kdbk
+node_modules
