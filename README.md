@@ -1,3 +1,5 @@
+install ksanaforge/ksana2015
+
 Install dependencies
 ====================
 
