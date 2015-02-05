@@ -44,6 +44,7 @@ var writeBook=function(bkid) {
 
 var processBody=function(body) {
 	body=body.replace(/<br>/g,"\n<seg/>");
+	body=body.replace(/<seg\/>\n<seg\/>/g,"\n<seg/>");
 	body=body.replace(/<\/font>/g,"");
 	body=body.replace(/<\/td>/g,"");
 
