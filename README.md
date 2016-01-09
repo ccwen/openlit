@@ -5,10 +5,16 @@ Install dependencies
 
     npm install
 
+Get Booklist from openlit.com, save as booklist.json
+===========================================
+
+    node genbooklist
+
+
 Get raw html from openlit.com, save as utf8
 ===========================================
 
-    node wget   
+    node wget
 
 Convert to accelon xml format
 ============================
