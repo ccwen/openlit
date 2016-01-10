@@ -1,14 +1,21 @@
 /*
 TODO , normalize all traditional and variants to simplified Chinese
 */
-var raw="raw/*.html";
 
-var do_div=function(text,tag,attributes,status) {
-	return null;
+
+var do_hn=function(text,tag,attributes,status) {
+	if (!text) return;
+	return [	{path:["hn"],value:text.trim()},
+		      {path:["hn_depth"],value:status.tagStack.length+2},
+		      {path:["hn_vpos"],value:status.vposstart},
+		      {path:["hn_len"],value:status.vpos-status.vposstart}
+		    ]
 }
 
 var captureTags={
-	"div":do_div, 
+	"h1":do_hn, 
+	"h2":do_hn, 
+	"h3":do_hn, 
 };
 
 var warning=function() {
@@ -27,25 +34,28 @@ var finalized=function(session) {
 var finalizeField=function(fields) {
 
 }
+//break into smaller unit by h1
 
 var config={
 	name:"openlit"
 	,meta:{
 		config:"simple1",
-		toc:"head"
+		toc:'hn'
 	}
-	,glob:yinshun // 可以規定索引的檔案群是那一些，可以含萬用字元
-	,segsep:"p.n"
+	,glob:"openlit.lst"
+	,segsep:"_.id"
 	,format:"TEIP5"
 	,reset:true
 	,finalized:finalized
 	,finalizeField:finalizeField
 	,warning:warning
 	,captureTags:captureTags
+	,preprocessor:require("./preprocessor")
+	,norawtag:true
 	,callbacks: {
 		onFile:onFile
 	}
-	,noWrite:true
+	//,noWrite:true
 }
 require("ksana-indexer").build(config);
 module.exports=config;

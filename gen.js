@@ -63,11 +63,15 @@ var processBody=function(body,bookid,chapterid) {
 	body=body.replace(/<br\/?>\n?<br\/?>/g,"\n<br>");
 	body=body.replace(/<br\/?>\n?<br\/?>/g,"\n<br>");
 
+	body=body.replace(/<\/font>/g,"");
+	body=body.replace(/<\/td>/g,"");
+	body=body.replace(/<\/?table>/g,"");
+
+	body=body.replace(/<td>/g,"\t");
+	body=body.replace(/<\/?tr>/g,"");
 	body=body.replace(/<[bB]>/g,"<h3>");
 	body=body.replace(/<\/[bB]>/g,"</h3>");
 
-	body=body.replace(/<\/font>/g,"");
-	body=body.replace(/<\/td>/g,"");
 	body=convertEntity(body);
 
 	var pcount=0;
@@ -77,12 +81,10 @@ var processBody=function(body,bookid,chapterid) {
 		return r;
 	});
 
-
 	//unicode entity
 	body=body.replace(/&#(\d+);/g,function(m,m1){
 		return String.fromCharCode(parseInt(m1));
 	});
-
 
 
 	//changjie code
@@ -131,7 +133,10 @@ var processfile=function(fn) {
 	} else {
 		if (!out.length) out.push('<h1 id="'+bc.bkid+'">'+bkname+'</h1>');
 		out.push('<h2 n="'+bc.chapterid+'">'+convertEntity(title).replace(/<br>/,"　")+'</h2>');//title might have <br>
-		var body=arr[chapternameoffset+5].substr(56);
+
+
+		var body=arr[chapternameoffset+5].substr(55);
+		if (body[0]==">") body=body.substr(1);
 		//console.log(body.length,out.length)
 		out.push(processBody(body,bc.bkid,bc.chapterid));
 	}
@@ -168,7 +173,7 @@ var processfiles=function(files){
 
 var allbooklist=require("./booklist.json").map(function(item){return item[0]});//全部書
 var allbooklist=require("./book_history"); //歷史演義
-
+//var allbooklist=['322']
 var allfiles=[];
 allbooklist.map(function(folder){
 	var files=glob.sync("raw/"+folder+"/*.html");
